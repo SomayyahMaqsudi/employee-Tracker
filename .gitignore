@@ -1,1 +1,4 @@
 node_modules
+user: "root",
+password: "Delara@20212021",
+database: "company_db"
