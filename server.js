@@ -10,7 +10,7 @@ var connetion = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "Delara@20212021",
-  database: "employee_db"
+  database: "company_db"
 });
 
 
@@ -30,7 +30,7 @@ function startQuestions() {
       "Add an employee",
       "Add a department",
       "Add a role",
-      "Update an employee roel",
+      "Update an employee role",
       "I'm done!"
     ],
     name: "choice"
@@ -58,7 +58,7 @@ function startQuestions() {
         addRole()
         break;
 
-        case "Update and employee role":
+        case "Update an employee role":
         updateEmployeeRole()
         break;
 
@@ -78,7 +78,7 @@ function viewEmployees() {
 }
 
 function viewDepartments() {
-  connetion.query("SELECT * FROM department", function (err, data){
+  connetion.query("SELECT * FROM departments", function (err, data){
     console.log(data);
     startQuestions();
   }
@@ -108,7 +108,7 @@ function addEmployee() {
   },
 ])
 .then(function(res) {
-  connetion.query('INSER INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, data) {
+  connetion.query('INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, data) {
     if (err) throw err
     console.log("Data was entered succesfully!");
     startQuestions();
@@ -124,7 +124,7 @@ function addDepartment() {
   },
 ])
 .then(function(res) {
-  connetion.query('INSER INTO department (name) VALUES (?)', [res.department], function(err, data) {
+  connetion.query('INSERT INTO departments (name) VALUES (?)', [res.department], function(err, data) {
     if (err) throw err
     console.log("Data was entered succesfully!");
     startQuestions();
@@ -150,7 +150,7 @@ function addRole() {
   }
 ])
 .then(function(res) {
-  connetion.query('INSER INTO roles (title, salary, department_id) VALUES (?, ?, ?)', [res.title, res.salary, res.department_id], function(err, data) {
+  connetion.query('INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)', [res.title, res.salary, res.department_id], function(err, data) {
     console.table(data);
   })
   startQuestions();
